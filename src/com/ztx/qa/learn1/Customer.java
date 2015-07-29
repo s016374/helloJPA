@@ -1,6 +1,7 @@
 package com.ztx.qa.learn1;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
