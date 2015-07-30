@@ -6,6 +6,10 @@
 
         <class>com.ztx.qa.learn1.Customer</class>
         <class>com.ztx.qa.learn1.Order</class>
+        <class>com.ztx.qa.learn1.Manager</class>
+        <class>com.ztx.qa.learn1.Department</class>
+        <class>com.ztx.qa.learn1.Category</class>
+        <class>com.ztx.qa.learn1.Item</class>
 
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://10.2.6.235:3306/autotest"/>

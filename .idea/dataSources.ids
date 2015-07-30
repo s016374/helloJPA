@@ -7,6 +7,12 @@
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="autotest"/>
+    <table name="category" schema="" catalog="autotest" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="categoryName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_q3odw98t8mc0vgc0rdpe7duhq" table="item_category" schema="" catalog="autotest" columns="categories_id"/>
+    </table>
     <table name="customers" schema="" catalog="autotest" type="TABLE">
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="AGE" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
@@ -14,6 +20,15 @@
       <column name="LAST_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
       <exported-key name="FK_57wwsm6wqqkcr1amp4dtsk5bs" table="orders" schema="" catalog="autotest" columns="CUSTOMER_ID"/>
+    </table>
+    <table name="department" schema="" catalog="autotest" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="deptName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="manager_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_pwsg2i9mf3et4f3fi0w5up61m" columns="manager_id" ref-table="manager" ref-schema="" ref-catalog="autotest" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UK_pwsg2i9mf3et4f3fi0w5up61m" unique="true" columns="manager_id"/>
+      <index name="FK_pwsg2i9mf3et4f3fi0w5up61m" unique="false" columns="manager_id"/>
     </table>
     <table name="function_suit" schema="" catalog="autotest" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -62,6 +77,27 @@
       <column name="update_Time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="window_Name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="item" schema="" catalog="autotest" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="itemName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_m5dk573b7s4rntvvl687p00mk" table="item_category" schema="" catalog="autotest" columns="items_id"/>
+    </table>
+    <table name="item_category" schema="" catalog="autotest" type="TABLE">
+      <column name="items_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="categories_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="items_id,categories_id"/>
+      <foreign-key name="FK_m5dk573b7s4rntvvl687p00mk" columns="items_id" ref-table="item" ref-schema="" ref-catalog="autotest" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_q3odw98t8mc0vgc0rdpe7duhq" columns="categories_id" ref-table="category" ref-schema="" ref-catalog="autotest" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_m5dk573b7s4rntvvl687p00mk" unique="false" columns="items_id"/>
+      <index name="FK_q3odw98t8mc0vgc0rdpe7duhq" unique="false" columns="categories_id"/>
+    </table>
+    <table name="manager" schema="" catalog="autotest" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="mgrName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_pwsg2i9mf3et4f3fi0w5up61m" table="department" schema="" catalog="autotest" columns="manager_id"/>
     </table>
     <table name="news" schema="" catalog="autotest" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
