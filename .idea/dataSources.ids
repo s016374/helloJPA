@@ -23,12 +23,25 @@
     </table>
     <table name="department" schema="" catalog="autotest" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="departmentName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="deptName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="manager_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FK_pwsg2i9mf3et4f3fi0w5up61m" columns="manager_id" ref-table="manager" ref-schema="" ref-catalog="autotest" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_lk0a412kck2kdc6slousi528s" table="employee" schema="" catalog="autotest" columns="department_id"/>
       <index name="UK_pwsg2i9mf3et4f3fi0w5up61m" unique="true" columns="manager_id"/>
       <index name="FK_pwsg2i9mf3et4f3fi0w5up61m" unique="false" columns="manager_id"/>
+    </table>
+    <table name="employee" schema="" catalog="autotest" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="birth" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="createTime" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="department_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_lk0a412kck2kdc6slousi528s" columns="department_id" ref-table="department" ref-schema="" ref-catalog="autotest" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_lk0a412kck2kdc6slousi528s" unique="false" columns="department_id"/>
     </table>
     <table name="function_suit" schema="" catalog="autotest" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -75,6 +88,7 @@
       <column name="remark" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="system_Type" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="update_Time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="version_Number" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="window_Name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
@@ -135,6 +149,7 @@
       <column name="testStep_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="testSuit_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="caseDesc" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="is_Auto_Test" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="test_case_result" schema="" catalog="autotest" type="TABLE">

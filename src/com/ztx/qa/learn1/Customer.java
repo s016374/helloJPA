@@ -7,6 +7,7 @@ import java.util.Set;
 /**
  * Created by s016374 on 15/7/28.
  */
+@NamedQuery(name = "jpqlNamedQuery", query = "select c from Customer c where c.id = ?")
 @Entity
 @Table(name = "CUSTOMERS")
 public class Customer {

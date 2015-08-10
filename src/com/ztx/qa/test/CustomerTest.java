@@ -1,14 +1,14 @@
 package com.ztx.qa.test;
 
 import com.ztx.qa.learn1.Customer;
+import com.ztx.qa.learn1.Order;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by s016374 on 15/7/28.
@@ -64,7 +64,7 @@ public class CustomerTest {
 
     @Test
     public void testMerge1() {
-        Customer customer = new Customer("Mike", "Mike123@mail.com", 20);
+        Customer customer = new Customer("Mike", "Mike123@mail.com", 22);
         Customer customer1 = entityManager.merge(customer);
         System.out.println("#customer: " + customer);
         System.out.println("#customer1: " + customer1);
@@ -72,8 +72,8 @@ public class CustomerTest {
 
     @Test
     public void testMerge2() {
-        Customer customer = new Customer("Mike", "Mike123@mail.com", 20);
-        customer.setId(10);
+        Customer customer = new Customer("Mike", "Mike123@mail.com", 21);
+        customer.setId(5);
         Customer customer1 = entityManager.merge(customer);
         System.out.println("#customer: " + customer);
         System.out.println("#customer1: " + customer1);
@@ -95,5 +95,50 @@ public class CustomerTest {
         entityManager.flush();
         System.out.println("####");
         System.out.println("Age: " + customer.getAge());
+    }
+
+    @Test
+    public void testQuery() {
+        String jpql = "select new Customer(c.lastName, c.email, c.age) from Customer c where c.age > ? order by c.age desc";
+        Query query = entityManager.createQuery(jpql);
+        query.setParameter(1, 1);
+        List<Customer> customers = query.getResultList();
+        System.out.println(customers);
+    }
+
+    @Test
+    public void testNamedQuery() {
+        Query query = entityManager.createNamedQuery("jpqlNamedQuery").setParameter(1, 2);
+        Customer customer = (Customer) query.getSingleResult();
+        System.out.println(customer);
+    }
+
+    @Test
+    public void testNativeQuery() {
+        String jpql = "select LAST_NAME from customers where ID = ?";
+        Query query = entityManager.createNativeQuery(jpql).setParameter(1, 1);
+        List result = query.getResultList();
+        System.out.println("lastName: " + result);
+    }
+
+    @Test
+    public void testGroupBy() {
+        String jpql = "select o.customer from Order o group by o.customer having count(o.id)>1";
+        List<Customer> customers = entityManager.createQuery(jpql).getResultList();
+        System.out.println(customers);
+    }
+
+    @Test
+    public void testSubQuery() {
+        String jpql = "select upper(o.orderName) from Order o where o.customer = (select c from Customer c where c.age = ?)";
+        List<Order> orders = entityManager.createQuery(jpql).setParameter(1, 35).getResultList();
+        System.out.println(orders);
+    }
+
+    @Test
+    public void testUpdate() {
+        String jpql = "update Customer c set c.age = ? where c.id = ?";
+        Query query = entityManager.createQuery(jpql).setParameter(1, 30).setParameter(2, 2);
+        query.executeUpdate();
     }
 }
